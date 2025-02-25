@@ -1,0 +1,8 @@
+/vendor
+build
+composer.phar
+composer.lock
+.DS_Store
+.phpunit.result.cache
+.php_cs.cache
+/phpunit_helper_phpstorm

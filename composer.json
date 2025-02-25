@@ -1,0 +1,32 @@
+{
+    "name": "homedoctor-es/laravel-google-chat-connector",
+    "description": "Brings up the option for sending the logs to google chat [Google Workplace formerly called GSuite].",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Miguel Graciá",
+            "email": "miguel.gracia@homedoctor.es"
+        }
+    ],
+    "require": {
+        "php": ">=8.0",
+        "monolog/monolog": "^2.5",
+        "illuminate/notifications": "^9.0.2 || ^10.0 || ^11.0",
+        "illuminate/support": "^8.0|^10.0|^11.0",
+        "guzzlehttp/guzzle": "^5.3.3|^6.2.1|^7.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.5.10 || ^10.5",
+        "orchestra/testbench": "^8.33"
+    },
+    "autoload": {
+        "psr-4": {
+            "GoogleChatConnector\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "GoogleChatConnector\\Tests\\": "tests"
+        }
+    }
+}
