@@ -3,6 +3,7 @@
 namespace GoogleChatConnector\Tests\Fixtures;
 
 use GoogleChatConnector\CardV2;
+use GoogleChatConnector\Enums\Icon;
 use GoogleChatConnector\GoogleChatChannel;
 use GoogleChatConnector\GoogleChatMessage;
 use GoogleChatConnector\Section;
@@ -27,7 +28,7 @@ class TestEndToEndNotificationV2 extends Notification
                 CardV2::create('info-card-id',[
                     Section::create([
                         DecoratedText::create('Decorated Text')->startIcon(
-                            KnownIcon::create(KnownIcon::AIRPLANE)
+                            KnownIcon::create(Icon::AIRPLANE)
                         ),
                         DecoratedText::create('Decorated Text')->startIcon(
                             IconUrl::create('https://developers.google.com/workspace/chat/images/quickstart-app-avatar.png')
