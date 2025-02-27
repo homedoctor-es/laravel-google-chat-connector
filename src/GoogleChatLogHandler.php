@@ -23,7 +23,7 @@ class GoogleChatLogHandler extends AbstractProcessingHandler
      *
      * @throws \Exception
      */
-    protected function write(array $record): void
+    protected function write(LogRecord $record): void
     {
         self::$additionalLogs = function () use ($record) {
             return $record['context'] ?? null;
