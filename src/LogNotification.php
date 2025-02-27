@@ -2,6 +2,7 @@
 
 namespace GoogleChatConnector;
 
+use GoogleChatConnector\Enums\Icon;
 use GoogleChatConnector\Widgets\DecoratedText;
 use GoogleChatConnector\Widgets\Icons\KnownIcon;
 use GoogleChatConnector\Widgets\TextParagraph;
@@ -35,10 +36,10 @@ class LogNotification extends Notification
                 CardV2::create('info-card-id', [
                     Section::create([
                         TextParagraph::create($record['message']),
-                        $this->cardWidget(ucwords(config('app.env') ?: 'NA') . ' [Env]', KnownIcon::BOOKMARK),
-                        $this->cardWidget($this->getLevelContent($record), KnownIcon::TICKET),
-                        $this->cardWidget($record['datetime'], KnownIcon::CLOCK),
-                        $this->cardWidget(request()->url(), KnownIcon::BUS),
+                        $this->cardWidget(ucwords(config('app.env') ?: 'NA') . ' [Env]', Icon::BOOKMARK),
+                        $this->cardWidget($this->getLevelContent($record), Icon::TICKET),
+                        $this->cardWidget($record['datetime'], Icon::CLOCK),
+                        $this->cardWidget(request()->url(), Icon::BUS),
                         ...$this->getCustomLogs(),
                     ])->header('Details')
                         ->setCollapsible(true),
