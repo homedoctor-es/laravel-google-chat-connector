@@ -32,11 +32,10 @@ class LogNotification extends Notification
     protected function getRequestBody(LogRecord $record): GoogleChatMessage
     {
         return GoogleChatMessage::create()
-            ->text(substr($this->getNotifiableText($record['level'] ?? '') . $record['formatted'], 0, 4096))
+            ->text(substr($this->getNotifiableText($record->level) . $record->formatted, 0, 4096))
             ->cardV2([
                 CardV2::create('info-card-id', [
                     Section::create([
-                        TextParagraph::create($record['message']),
                         $this->cardWidget(ucwords(config('app.env') ?: 'NA') . ' [Env]', Icon::BOOKMARK),
                         $this->cardWidget($this->getLevelContent($record->level), Icon::TICKET),
                         $this->cardWidget($record['datetime'], Icon::CLOCK),
@@ -51,7 +50,7 @@ class LogNotification extends Notification
             ]);
     }
 
-    protected function getNotifiableText($level): string
+    protected function getNotifiableText(Level $level): string
     {
         $levelBasedUserIds = match ($level) {
             Level::Emergency => config('logging.channels.google-chat.notify_users.emergency'),
