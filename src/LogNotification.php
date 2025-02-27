@@ -35,7 +35,6 @@ class LogNotification extends Notification
             ->cardV2([
                 CardV2::create('info-card-id', [
                     Section::create([
-                        TextParagraph::create($record['message']),
                         $this->cardWidget(ucwords(config('app.env') ?: 'NA') . ' [Env]', Icon::BOOKMARK),
                         $this->cardWidget($this->getLevelContent($record), Icon::TICKET),
                         $this->cardWidget($record['datetime'], Icon::CLOCK),
