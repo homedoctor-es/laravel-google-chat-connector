@@ -2,8 +2,9 @@
 
 namespace GoogleChatConnector\Tests;
 
-use Illuminate\Support\Facades\Notification;
 use GoogleChatConnector\Tests\Fixtures\TestEndToEndNotification;
+use GoogleChatConnector\Tests\Fixtures\TestEndToEndNotificationV2;
+use Illuminate\Support\Facades\Notification;
 
 class EndToEndTest extends TestCase
 {
@@ -12,11 +13,74 @@ class EndToEndTest extends TestCase
      */
     protected $notification;
 
+    /**
+     * @var \GoogleChatConnector\Tests\Fixtures\TestEndToEndNotificationV2
+     */
+    protected $notificationV2;
+
     public function setUp(): void
     {
         parent::setUp();
 
         $this->notification = new TestEndToEndNotification;
+
+        $this->notificationV2 = new TestEndToEndNotificationV2;
+
+    }
+
+    public function test_it_generates_complete_correct_array_structure_v2()
+    {
+        $array = $this->notificationV2->toGoogleChat('foo')->toArray();
+
+        $this->assertEquals([
+            'text' => 'This is a test end-to-end notification.',
+            'cardsV2' => [
+                [
+                    'cardId' => 'info-card-id',
+                    'card' => [
+                        'sections' => [
+                            [
+                                'collapsible' => true,
+                                'widgets' => [
+                                    [
+                                        'decoratedText' => [
+                                            'startIcon' => [
+                                                'knownIcon' => 'AIRPLANE',
+                                            ],
+                                            'text' => 'Decorated Text'
+                                        ],
+                                    ],
+                                    [
+                                        'decoratedText' => [
+                                            'startIcon' => [
+                                                'iconUrl' => 'https://developers.google.com/workspace/chat/images/quickstart-app-avatar.png',
+                                            ],
+                                            'text' => 'Decorated Text'
+                                        ],
+                                    ],
+                                    [
+                                        'decoratedText' => [
+                                            'startIcon' => [
+                                                'materialIcon' => [
+                                                    'name' => 'sentiment_frustrated',
+                                                ],
+                                            ],
+                                            'text' => 'Decorated Text'
+                                        ],
+                                    ]
+                                ],
+                                'header' => 'Details'
+                            ]
+                        ],
+                        'header' => [
+                            'title' => "title header",
+                            'subtitle' => "subtitle header",
+                        ],
+                    ]
+                ]
+            ]
+        ], $array);
+
     }
 
     public function test_it_generates_complete_correct_array_structure()
@@ -134,6 +198,14 @@ class EndToEndTest extends TestCase
     {
         Notification::route('googleChat', env('GOOGLE_CHAT_TEST_SPACE'))
             ->notify($this->notification);
+
+        $this->assertTrue(true);
+    }
+
+    public function test_it_can_send_message_to_google_V2()
+    {
+        Notification::route('googleChat', env('GOOGLE_CHAT_TEST_SPACE'))
+            ->notify($this->notificationV2);
 
         $this->assertTrue(true);
     }

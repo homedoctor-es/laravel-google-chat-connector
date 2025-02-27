@@ -213,6 +213,24 @@ class GoogleChatMessage implements Arrayable
     }
 
     /**
+     * Add a one or more cards to the message (Version 2).
+     *
+     * @param \GoogleChatConnector\CardV2|\GoogleChatConnector\CardV2[] $card
+     * @return self
+     */
+    public function cardV2($card): GoogleChatMessage
+    {
+        $cards = Arr::wrap($card);
+
+        $this->guardOnlyInstancesOf(CardV2::class, $cards);
+
+        $this->payload['cardsV2'] = array_merge($this->payload['cardsV2'] ?? [], $cards);
+
+        return $this;
+    }
+
+
+    /**
      * Return the configured webhook URL of the recipient space, or null if this has
      * not been configured.
      *

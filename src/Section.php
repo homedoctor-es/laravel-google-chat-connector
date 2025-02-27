@@ -33,6 +33,13 @@ class Section implements Arrayable
         return $this;
     }
 
+    public function setCollapsible(bool $collapsible): Section
+    {
+        $this->payload['collapsible'] = $collapsible;
+
+        return $this;
+    }
+
     /**
      * Add one or more widgets to this section.
      *
