@@ -155,7 +155,7 @@ class LogNotification extends Notification
         foreach ($additionalLogs as $key => $value) {
             if ($value && !is_string($value)) {
                 try {
-                    $value = json_encode($value);
+                    $value = json_encode($value, JSON_PRETTY_PRINT);
                 } catch (Throwable $throwable) {
                     throw new Exception("Additional log key-value should be a string for key[{$key}]. For logging objects, json or array, please stringify by doing json encode or serialize on the value.");
                 }
