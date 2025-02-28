@@ -5,7 +5,6 @@ namespace GoogleChatConnector;
 use GoogleChatConnector\Enums\Icon;
 use GoogleChatConnector\Widgets\DecoratedText;
 use GoogleChatConnector\Widgets\Icons\KnownIcon;
-use GoogleChatConnector\Widgets\TextParagraph;
 use Illuminate\Notifications\Notification;
 use Monolog\Logger;
 
