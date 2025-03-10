@@ -7,6 +7,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use Illuminate\Notifications\Notification;
 use GoogleChatConnector\Exceptions\CouldNotSendNotification;
+use Illuminate\Support\Facades\Log;
 
 class GoogleChatChannel
 {
@@ -46,12 +47,10 @@ class GoogleChatChannel
             throw CouldNotSendNotification::invalidMessage($message);
         }
 
-        $space = $message->getSpace()
-            ?? $notifiable->routeNotificationFor('google-chat')
-            ?? config('google-chat.space');
+        $space = $message->getSpace() ?? $notifiable->routeNotificationFor('google-chat');
 
         if (! $endpoint = config("google-chat.spaces.$space", $space)) {
-            throw CouldNotSendNotification::webhookUnavailable();
+            return $this;
         }
 
         try {
@@ -62,10 +61,8 @@ class GoogleChatChannel
                     'json' => $message->toArray(),
                 ]
             );
-        } catch (ClientException $exception) {
-            throw CouldNotSendNotification::clientError($exception);
-        } catch (Exception $exception) {
-            throw CouldNotSendNotification::unexpectedException($exception);
+        } catch (ClientException|Exception $exception) {
+            Log::channel('daily')->error($exception);
         }
 
         return $this;
