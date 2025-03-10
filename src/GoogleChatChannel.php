@@ -47,7 +47,7 @@ class GoogleChatChannel
         }
 
         $space = $message->getSpace()
-            ?? $notifiable->routeNotificationFor('googleChat')
+            ?? $notifiable->routeNotificationFor('google-chat')
             ?? config('google-chat.space');
 
         if (! $endpoint = config("google-chat.spaces.$space", $space)) {
